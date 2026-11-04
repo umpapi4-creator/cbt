@@ -1,0 +1,37 @@
+CBT Campus v0.16 - Instalasi Windows / Laragon
+
+1. Extract folder cbt-laravel10 ke C:\laragon\www\
+2. Buka Terminal Laragon.
+3. cd C:\laragon\www\cbt-laravel10
+4. composer install
+5. copy .env.example .env
+6. php artisan key:generate
+7. Buat database MySQL: cbt_system
+8. Atur DB_DATABASE=cbt_system pada .env
+9. php artisan migrate --seed
+10. php artisan storage:link
+11. php artisan optimize:clear
+12. php artisan serve
+13. Buka http://127.0.0.1:8000
+
+Demo:
+Dosen     : tesdosen / tessdosen
+Mahasiswa : tes / tes
+Kode ujian: CBT123
+
+Mahasiswa baru dapat menekan "Buat Akun Mahasiswa" pada halaman login.
+
+Upgrade dari v0.6:
+- Timpa source dengan v0.7, tetapi pertahankan .env lama.
+- composer dump-autoload
+- php artisan optimize:clear
+- php artisan serve
+- Tidak perlu migrate:fresh.
+
+Update v0.16 dari v0.15:
+- Timpa source lama dengan v0.16, tetapi pertahankan .env lama.
+- composer dump-autoload
+- php artisan migrate
+- php artisan optimize:clear
+- php artisan serve
+- Jangan jalankan migrate:fresh jika ingin mempertahankan soal, akun, nilai, dan riwayat lama.

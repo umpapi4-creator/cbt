@@ -1,0 +1,10 @@
+CBT Campus v0.16
+Laravel 10 + PHP 8.1
+
+Fitur utama v0.16:
+- Dosen dapat mengaktifkan izin mengulang ujian tanpa batas per mahasiswa dari kolom Riwayat Ujian.
+- Setiap pengulangan disimpan sebagai Ujian ke-1, Ujian ke-2, Ujian ke-3, dan seterusnya.
+- Nilai setiap percobaan tetap tersimpan dan tidak saling menimpa.
+- Mahasiswa memiliki menu Riwayat Ujian untuk melihat percobaan dan memulai pengulangan yang diizinkan.
+- Pengulangan tetap memakai timer, autosave, skor otomatis, dan pengawasan pindah tab 3/3.
+- Izin ulang dapat dinonaktifkan kembali oleh dosen tanpa menghapus riwayat sebelumnya.
