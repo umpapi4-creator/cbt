@@ -37,7 +37,7 @@
 
             <div class="register-box">
                 <span>Belum punya akun mahasiswa?</span>
-                <a class="btn outline full" href="{{ route('register') }}">Buat Akun Mahasiswa</a>
+                <a class="btn outline full" href="{{ route('register') }}">Buat Akun Mahasiswa dan Dosen</a>
                 <small>Akun dosen hanya dapat diberikan oleh Admin.</small>
             </div>
 

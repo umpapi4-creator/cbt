@@ -55,6 +55,39 @@ Blade dikompilasi di `/tmp`; session dan upload tidak disimpan di `/tmp`.
 
 ## 3. Membuat schema (langkah manual, perlu persetujuan pemilik database)
 
+### Pilihan A: SQL Editor Supabase (tanpa PHP CLI)
+
+Untuk project Supabase baru yang belum berisi tabel aplikasi:
+
+1. Buka **SQL Editor → New query**, pilih role **postgres**.
+2. Salin seluruh isi [01-schema.sql](../database/supabase/01-schema.sql), lalu
+   klik **Run**. Script membuat 14 tabel dalam satu transaksi, mengaktifkan
+   RLS, dan mencatat 16 migration yang sudah diwakili schema tersebut.
+3. Buat query baru dari [02-admin.sql](../database/supabase/02-admin.sql).
+   Ganti `admin_email`, `admin_username`, dan `admin_password` di editor.
+   Password minimal 12 karakter, maksimal 72 byte. Jika mengandung petik
+   tunggal, tulis dua petik tunggal (`''`) dalam string SQL.
+4. Klik **Run**, lalu login aplikasi memakai username/email dan password itu.
+   Tidak ada akun demo atau password bawaan pada jalur SQL ini.
+5. Buat bucket privat `cbt-uploads` melalui Storage seperti langkah 1 di atas,
+   lalu isi environment variables Vercel dan redeploy.
+
+Jalankan keseluruhan file, bukan beberapa baris terpilih. Jangan jalankan
+01-schema.sql pada database yang sudah mempunyai tabel aplikasi. Jika muncul
+`relation already exists`, jangan hapus tabel; periksa schema existing dulu.
+Jika transaksi gagal dan editor menyatakan transaksi aborted, jalankan
+`ROLLBACK;` sebelum mencoba query yang sudah diperbaiki.
+
+SQL dan Artisan di bawah adalah **dua alternatif instalasi**, bukan langkah
+yang dijalankan berurutan. Setelah memakai SQL, jangan jalankan ulang migration
+lama, `migrate:fresh`, `migrate:reset`, atau rollback batch baseline.
+Migration baru ke depan tetap bisa dijalankan lewat Artisan sesudah review.
+Tabel dilindungi dari Data API anon/authenticated; Laravel mengaksesnya lewat
+koneksi database `postgres` (pemilik tabel). Ini tidak memakai Supabase Auth.
+Script tidak mengimpor data dari MySQL lokal dan tidak membuat bucket Storage.
+
+### Pilihan B: Artisan dari terminal lokal
+
 Migration TIDAK dijalankan oleh build atau request website.
 Periksa target database dan backup lebih dahulu. Gunakan database Supabase
 baru/kosong, PHP CLI 8.1 dengan ekstensi pdo_pgsql, dan dependency Composer.
