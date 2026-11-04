@@ -17,7 +17,7 @@
         <form class="login-card" method="post" action="{{ route('login.submit') }}">
             @csrf
             <h2>Masuk ke Sistem</h2>
-            <p>Gunakan akun admin, dosen, atau mahasiswa.</p>
+            <p>Gunakan akun</p>
 
             @if(session('registered'))
                 <div class="alert success">{{ session('registered') }}</div>
