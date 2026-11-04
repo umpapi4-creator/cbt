@@ -23,7 +23,7 @@
         <div class="profile-photo-editor">
             <div class="profile-photo-preview">
                 @if($lecturer->profile_photo_path)
-                    <img src="{{ asset('storage/'.$lecturer->profile_photo_path) }}" alt="Foto profil {{ $lecturer->name }}">
+                    <img src="{{ \App\Services\UploadStorage::url($lecturer->profile_photo_path) }}" alt="Foto profil {{ $lecturer->name }}">
                 @else
                     <span>{{ strtoupper(substr($lecturer->name,0,1)) }}</span>
                 @endif

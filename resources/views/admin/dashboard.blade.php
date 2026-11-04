@@ -43,7 +43,7 @@
                         <div class="admin-user-cell">
                             <div class="avatar mini">
                                 @if($user->profile_photo_path)
-                                    <img src="{{ asset('storage/'.$user->profile_photo_path) }}" alt="Foto {{ $user->name }}">
+                                    <img src="{{ \App\Services\UploadStorage::url($user->profile_photo_path) }}" alt="Foto {{ $user->name }}">
                                 @else
                                     {{ strtoupper(substr($user->name,0,1)) }}
                                 @endif

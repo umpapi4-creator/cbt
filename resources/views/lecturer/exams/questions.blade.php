@@ -30,7 +30,7 @@
                 <div class="q-body">
                     <div class="q-meta"><span class="badge soft">{{ ucfirst($q->difficulty) }}</span></div>
                     <h4>{{ $q->text }}</h4>
-                    @if($q->image)<img class="q-image" src="{{ asset('storage/'.$q->image) }}" alt="Gambar soal">@endif
+                    @if($q->image)<img class="q-image" src="{{ \App\Services\UploadStorage::url($q->image) }}" alt="Gambar soal">@endif
                     <div class="option-mini">
                         @foreach($q->options as $o)
                             <span class="{{ $o->is_correct?'correct':'' }}"><b>{{ $o->label }}.</b> {{ $o->text }} @if($o->is_correct) ✓@endif</span>

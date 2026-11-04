@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.5.5",
+      "maxDuration": 60,
+      "excludeFiles": "{.env,.env.*,tests/**,storage/**,.git/**}"
+    }
+  },
+  "routes": [
+    { "src": "/(css|js|templates)/(.*)", "dest": "/$1/$2" },
+    { "src": "/(.*)", "dest": "/api/index.php" }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "LOG_CHANNEL": "stderr",
+    "CACHE_DRIVER": "array",
+    "SESSION_DRIVER": "database",
+    "SESSION_SECURE_COOKIE": "true",
+    "QUEUE_CONNECTION": "sync",
+    "DB_CONNECTION": "pgsql",
+    "DB_SSLMODE": "require",
+    "SUPABASE_STORAGE_ENABLED": "true"
+  }
+}

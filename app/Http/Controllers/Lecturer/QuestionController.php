@@ -6,7 +6,6 @@ use App\Models\{Exam, Question, QuestionOption};
 use App\Services\QuestionImportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
 class QuestionController extends Controller
@@ -33,7 +32,7 @@ class QuestionController extends Controller
                 'text' => $data['text'],
                 'explanation' => $data['explanation'] ?? null,
                 'difficulty' => $data['difficulty'],
-                'image' => $request->hasFile('image') ? $request->file('image')->store('questions', 'public') : null,
+                'image' => $request->hasFile('image') ? \App\Services\UploadStorage::store($request->file('image'), 'questions') : null,
             ]);
             $this->saveOptions($question, $data);
         });
@@ -108,8 +107,8 @@ class QuestionController extends Controller
                 'difficulty' => $data['difficulty'],
             ];
             if ($request->hasFile('image')) {
-                if ($question->image) Storage::disk('public')->delete($question->image);
-                $payload['image'] = $request->file('image')->store('questions', 'public');
+                if ($question->image) \App\Services\UploadStorage::delete($question->image);
+                $payload['image'] = \App\Services\UploadStorage::store($request->file('image'), 'questions');
             }
             $question->update($payload);
             $question->options()->delete();
@@ -122,7 +121,7 @@ class QuestionController extends Controller
     public function destroy(Exam $exam, Question $question)
     {
         $this->ownQuestion($exam, $question);
-        if ($question->image) Storage::disk('public')->delete($question->image);
+        if ($question->image) \App\Services\UploadStorage::delete($question->image);
         $question->delete();
         return back()->with('success', 'Soal dihapus dari ujian.');
     }

@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+vendor
+tests
+storage/**
+bootstrap/cache/*.php
+.cache
+node_modules
+AGENTS.md

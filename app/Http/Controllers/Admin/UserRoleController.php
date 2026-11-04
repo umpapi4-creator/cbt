@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UserRoleController extends Controller
@@ -61,14 +60,14 @@ class UserRoleController extends Controller
         }
 
         if ($user->profile_photo_path) {
-            Storage::disk('public')->delete($user->profile_photo_path);
+            \App\Services\UploadStorage::delete($user->profile_photo_path);
         }
 
         // Hapus file gambar soal milik dosen agar tidak menjadi file yatim
         // setelah data dosen dan soal dihapus oleh foreign key cascade.
         if ($user->role === 'lecturer') {
             $user->questions()->pluck('image')->filter()->each(function ($path) {
-                Storage::disk('public')->delete($path);
+                \App\Services\UploadStorage::delete($path);
             });
         }
 

@@ -8,7 +8,7 @@
   <div class="userbox">
    <div class="avatar">
     @if(auth()->user()->profile_photo_path)
-     <img src="{{ asset('storage/'.auth()->user()->profile_photo_path) }}" alt="Foto {{ auth()->user()->name }}">
+     <img src="{{ \App\Services\UploadStorage::url(auth()->user()->profile_photo_path) }}" alt="Foto {{ auth()->user()->name }}">
     @else
      {{ strtoupper(substr(auth()->user()->name,0,1)) }}
     @endif

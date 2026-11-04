@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
@@ -63,15 +62,15 @@ class StudentController extends Controller
         }
 
         if ($request->boolean('remove_profile_photo') && $user->profile_photo_path) {
-            Storage::disk('public')->delete($user->profile_photo_path);
+            \App\Services\UploadStorage::delete($user->profile_photo_path);
             $update['profile_photo_path'] = null;
         }
 
         if ($request->hasFile('profile_photo')) {
             if ($user->profile_photo_path) {
-                Storage::disk('public')->delete($user->profile_photo_path);
+                \App\Services\UploadStorage::delete($user->profile_photo_path);
             }
-            $update['profile_photo_path'] = $request->file('profile_photo')->store('profile_photos', 'public');
+            $update['profile_photo_path'] = \App\Services\UploadStorage::store($request->file('profile_photo'), 'profile_photos');
         }
 
         $user->update($update);

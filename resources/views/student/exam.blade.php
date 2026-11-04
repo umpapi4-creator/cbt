@@ -48,7 +48,7 @@
                     <span class="save-status" id="save-{{ $qid }}">Tersimpan</span>
                 </div>
                 <h2>{{ $q->text }}</h2>
-                @if($q->image)<img class="q-image" src="{{ asset('storage/'.$q->image) }}">@endif
+                @if($q->image)<img class="q-image" src="{{ \App\Services\UploadStorage::url($q->image) }}">@endif
                 <div class="answer-list">
                     @foreach($order as $oid)
                         @php $o=$optionMap[$oid]; @endphp
