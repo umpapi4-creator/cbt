@@ -12,6 +12,7 @@
             <p>Semua soal di bawah ini langsung menjadi bagian dari ujian <b>{{ $exam->title }}</b>. Tidak ada bank soal terpisah.</p>
         </div>
         <div class="actions">
+            <a class="btn ghost" href="{{ route('lecturer.exams.edit',$exam) }}">Edit Ujian</a>
             <a class="btn ghost" href="{{ route('lecturer.exams.questions.import',$exam) }}">⇧ Import Soal</a>
             <a class="btn primary" href="{{ route('lecturer.exams.questions.create',$exam) }}">+ Tambah Soal</a>
         </div>
