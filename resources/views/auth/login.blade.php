@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title','Login CBT Campus')
 @section('content')
-<div class="login-page">
+<div class="login-page campus-login">
     <div class="login-visual">
         <div class="visual-inner">
             <div class="logo-lg">CB</div>
@@ -16,8 +16,10 @@
     <div class="login-panel">
         <form class="login-card" method="post" action="{{ route('login.submit') }}">
             @csrf
-            <h2>Masuk ke Sistem</h2>
-            <p>Gunakan akun</p>
+            <div class="login-brand"><span class="login-brand-mark" aria-hidden="true">CB</span><div><strong>CBT Campus</strong><small>Portal ujian kampus</small></div></div>
+            <span class="login-eyebrow">SIAP UNTUK LANGKAH BERIKUTNYA?</span>
+            <h2>Selamat datang kembali<span>.</span></h2>
+            <p>Masuk ke akun Anda untuk melanjutkan aktivitas ujian.</p>
 
             @if(session('registered'))
                 <div class="alert success">{{ session('registered') }}</div>
@@ -26,29 +28,32 @@
                 <div class="alert danger">{{ $errors->first() }}</div>
             @endif
 
-            <label>Username / Email</label>
-            <input type="text" name="login" value="{{ old('login') }}" placeholder="Masukkan username atau email" required autofocus>
+            <label for="loginIdentity">Username / Email</label>
+            <input id="loginIdentity" type="text" name="login" autocomplete="username" value="{{ old('login') }}" placeholder="Masukkan username atau email" required autofocus>
 
             <label for="loginPassword">Password</label>
             <input id="loginPassword" type="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
-            <label class="checkline"><input type="checkbox" id="showLoginPassword" aria-controls="loginPassword"> Tampilkan Password</label>
-
-            <label class="checkline"><input type="checkbox" name="remember"> Ingat saya</label>
-            <button class="btn primary full" type="submit">Masuk</button>
+            <div class="login-options">
+                <label class="checkline"><input type="checkbox" id="showLoginPassword" aria-controls="loginPassword"> Tampilkan password</label>
+                <label class="checkline"><input type="checkbox" name="remember"> Ingat saya</label>
+            </div>
+            <button class="btn primary full login-submit" type="submit">Masuk ke akun <span aria-hidden="true">&rarr;</span></button>
 
             <div class="register-box">
-                <span>Buat Akun</span>
+                <span>Baru di CBT Campus?</span>
                 <a class="btn outline full" href="{{ route('register') }}">Buat Akun Mahasiswa dan Dosen</a>
                 <small>Akun dosen hanya dapat diverifikasi oleh Admin.</small>
-                <small>hubungi admin</small>
             </div>
 
-            <div class="demo-box">
-                <strong>Akun demo</strong>
+            <details class="demo-box login-demo">
+                <summary>Coba dulu dengan akun demo <span aria-hidden="true">+</span></summary>
+                <div class="login-demo-accounts">
                 <span>Admin: tesadmin / tesadmin</span>
                 <span>Dosen: tesdosen / tessdosen</span>
                 <span>Mahasiswa: tes / tes</span>
-            </div>
+                </div>
+            </details>
+            <div class="login-footer">Satu portal untuk setiap langkah ujian Anda.</div>
         </form>
     </div>
 </div>
